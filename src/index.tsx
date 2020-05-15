@@ -1,0 +1,20 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+import './index.scss';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Application from 'src/App';
+import * as serviceWorker from 'src/serviceWorker';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Application />
+  </React.StrictMode>,
+  document.querySelector('#root')
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
