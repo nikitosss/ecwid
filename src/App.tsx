@@ -1,115 +1,51 @@
 import './App.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import importImages from 'src/api/importImages';
 import Loader from 'src/components/Spinner';
+import FormSettings from 'src/containers/Form';
+import SettingsContext from 'src/contexts/Settings';
 import { ImageType } from 'src/types/Image';
 
 const Gallery = React.lazy(() => import('src/components/Gallery'));
 
-const defaultUrl = `${document.location.href}/frontend-test-task/gallery-images.json`;
-
 export const App = (): JSX.Element => {
+  const { defaultUrl } = useContext(SettingsContext);
   const [images, setImages] = useState<ImageType[]>([]);
   const [rowMaxHeight, setRowMaxHeight] = useState<number>(250);
+  const changeRowMaxHeight = (value: number): void => setRowMaxHeight(value);
   const [maxWidth, setMaxWidth] = useState<number>(860);
+  const changeMaxWidth = (value: number): void => setMaxWidth(value);
   const [minWidth, setMinWidth] = useState<number>(320);
-  const onSubmit = (event: React.SyntheticEvent): void => {
-    event.preventDefault();
-    const urlElement = document.querySelector<HTMLInputElement>('#url');
-    const url = urlElement ? urlElement.value : '';
-
-    importImages(url)
-      .then((response) => setImages([...response, ...images]))
-      .catch((error: Error) => {
-        alert(error);
-        return console.error(error);
-      });
-  };
+  const changeMinWidth = (value: number): void => setMinWidth(value);
 
   useEffect(() => {
     importImages(defaultUrl)
       .then((response) => setImages(response))
       .catch((error: Error) => console.error(error));
-  }, []);
+  }, [defaultUrl]);
 
   return (
     <div className="app">
-      <form className="app__form" onSubmit={onSubmit}>
-        <fieldset className="app__fieldset">
-          <legend>Импорот</legend>
-          <div className="app__group">
-            <label className="app__label" htmlFor="url">
-              <input
-                className="app__input"
-                type="url"
-                name="url"
-                id="url"
-                pattern="https?://.+"
-                required
-                defaultValue={defaultUrl}
+      <SettingsContext.Provider
+        value={{ defaultUrl, rowMaxHeight, changeRowMaxHeight, maxWidth, changeMaxWidth, minWidth, changeMinWidth }}
+      >
+        <FormSettings className="app__form" onImport={(data: ImageType[]): void => setImages([...data, ...images])} />
+        {Boolean(images.length) && (
+          <div className="app__gallery" style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
+            <React.Suspense fallback={<Loader />}>
+              <Gallery
+                images={images}
+                options={{
+                  rowMaxHeight,
+                  gap: 4,
+                }}
+                width={maxWidth}
               />
-            </label>
-            <button className="app__button" type="submit">
-              Submit
-            </button>
+            </React.Suspense>
           </div>
-        </fieldset>
-        <fieldset className="app__fieldset">
-          <legend>Настройки</legend>
-          <div className="app__group">
-            <label className="app__label" htmlFor="rowMaxHeight">
-              <span className="app__label_text">Row max height</span>
-              <input
-                className="app__input"
-                type="number"
-                id="rowMaxHeight"
-                required
-                defaultValue={rowMaxHeight}
-                onChange={(event): void => setRowMaxHeight(Number(event.target.value))}
-              />
-            </label>
-            <label className="app__label" htmlFor="maxWidth">
-              <span className="app__label_text">Max width</span>
-              <input
-                className="app__input"
-                type="number"
-                id="maxWidth"
-                required
-                min={minWidth}
-                defaultValue={maxWidth}
-                onChange={(event): void => setMaxWidth(Number(event.target.value))}
-              />
-            </label>
-            <label className="app__label" htmlFor="minWidth">
-              <span className="app__label_text">Min width</span>
-              <input
-                className="app__input"
-                type="number"
-                id="minWidth"
-                required
-                max={maxWidth}
-                defaultValue={minWidth}
-                onChange={(event): void => setMinWidth(Number(event.target.value))}
-              />
-            </label>
-          </div>
-        </fieldset>
-      </form>
-      {Boolean(images.length) && (
-        <div className="app__gallery" style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
-          <React.Suspense fallback={<Loader />}>
-            <Gallery
-              images={images}
-              options={{
-                rowMaxHeight,
-                gap: 4,
-              }}
-              width={maxWidth}
-            />
-          </React.Suspense>
-        </div>
-      )}
+        )}
+      </SettingsContext.Provider>
     </div>
   );
 };
