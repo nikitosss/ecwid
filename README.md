@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+![Deploy](https://github.com/nikitosss/ecwid/workflows/Deploy/badge.svg)
+
 In the project directory, you can run:
 
 ### `npm dev`
