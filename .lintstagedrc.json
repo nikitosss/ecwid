@@ -1,8 +1,0 @@
-{
-  "*.{ts,tsx}": [
-    "eslint --ignore-path .gitignore"
-  ],
-  "*.scss": [
-    "stylelint --ignore-path .gitignore"
-  ]
-}
