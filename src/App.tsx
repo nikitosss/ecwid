@@ -11,7 +11,7 @@ const defaultUrl = `${document.location.href}/frontend-test-task/gallery-images.
 
 export const App = (): JSX.Element => {
   const [images, setImages] = useState<ImageType[]>([]);
-  const [rowMaxHeight, setRowMaxHeight] = useState<number>(162);
+  const [rowMaxHeight, setRowMaxHeight] = useState<number>(250);
   const [maxWidth, setMaxWidth] = useState<number>(860);
   const [minWidth, setMinWidth] = useState<number>(320);
   const onSubmit = (event: React.SyntheticEvent): void => {
