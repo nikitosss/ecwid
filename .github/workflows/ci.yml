@@ -1,0 +1,52 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY_SKIP_INSTALL: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Install
+        run: |
+          npm ci
+
+      - name: Test
+        run: |
+          npm run lint
+          npm run test
+
+      - name: Build
+        run: |
+          npm run predeploy
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: site
+          path: build
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: site
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: "build"
