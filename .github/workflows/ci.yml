@@ -7,9 +7,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: 'node:12-alpine'
-
     strategy:
       matrix:
         node-version: [12.x]
