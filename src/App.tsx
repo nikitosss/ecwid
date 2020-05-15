@@ -7,7 +7,7 @@ import { ImageType } from 'src/types/Image';
 
 const Gallery = React.lazy(() => import('src/components/Gallery'));
 
-const defaultUrl = `${document.location.origin}/frontend-test-task/gallery-images.json`;
+const defaultUrl = `${document.location.href}/frontend-test-task/gallery-images.json`;
 
 export const App = (): JSX.Element => {
   const [images, setImages] = useState<ImageType[]>([]);
