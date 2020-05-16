@@ -15,6 +15,25 @@ type GalleryProps = {
   debounceWait?: number;
 };
 
+const getGrid = (
+  items: ImageType[],
+  width: number,
+  rowMaxHeight: number,
+  gap?: number
+): { cells: Array<Cell<ImageType>>; height: string } => {
+  const cells = generateGrid<ImageType>(items, {
+    width,
+    rowMaxHeight,
+    gap,
+  });
+  const lastCell = cells[cells.length - 1];
+
+  return {
+    cells,
+    height: `${lastCell.top + lastCell.height}px`,
+  };
+};
+
 export const Gallery = ({
   images,
   options: { rowMaxHeight = 100, gap },
@@ -22,20 +41,22 @@ export const Gallery = ({
   debounceWait = 300,
   className,
   style,
+  children,
   ...props
 }: GalleryProps & React.HTMLAttributes<HTMLElement>): JSX.Element => {
-  const [grid, setGrid] = useState<Array<Cell<ImageType>>>();
-  const [wrapHeight, setWrapHeight] = useState<string>('auto');
+  const { cells: defaultCells, height: defaultWrapHeight = 'auto' } = getGrid(images, wrapWidth, rowMaxHeight, gap);
+  const [grid, setGrid] = useState<Array<Cell<ImageType>>>(defaultCells);
+  const [wrapHeight, setWrapHeight] = useState<string>(defaultWrapHeight);
   const wrapElement = useRef<HTMLDivElement>(Object.create(null));
   const setState = useCallback(() => {
-    const cells = generateGrid<ImageType>(images, {
-      width: wrapElement.current ? wrapElement.current.offsetWidth : wrapWidth,
+    const { cells, height } = getGrid(
+      images,
+      wrapElement.current ? wrapElement.current.offsetWidth : wrapWidth,
       rowMaxHeight,
-      gap,
-    });
-    const lastCell = cells[cells.length - 1];
+      gap
+    );
 
-    setWrapHeight(`${lastCell.top + lastCell.height}px`);
+    setWrapHeight(height);
     setGrid(cells);
   }, [images, wrapWidth, rowMaxHeight, gap]);
   const debounceHandler = debounce(setState, debounceWait);
@@ -58,20 +79,22 @@ export const Gallery = ({
       {...props}
     >
       {grid &&
-        grid.map(({ top, left, height, width, object }) => (
-          <img
-            className="gallery__item"
-            key={object.id}
-            src={object.url}
-            alt={object.alt || ''}
-            height={height}
-            width={width}
-            style={{
-              top,
-              left,
-            }}
-          />
-        ))}
+        (typeof children === 'function'
+          ? children(grid)
+          : grid.map(({ top, left, height, width, object }) => (
+              <img
+                className="gallery__item"
+                key={object.id}
+                src={object.url}
+                alt={object.alt || ''}
+                height={height}
+                width={width}
+                style={{
+                  top,
+                  left,
+                }}
+              />
+            )))}
     </div>
   );
 };
