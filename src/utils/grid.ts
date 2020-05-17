@@ -82,9 +82,9 @@ export default <T extends Obj>(objects: Array<T>, { rowMaxHeight, width, gap = 0
       break;
     }
 
-    selectedObjects = [];
+    list = list.slice(selectedObjects.length);
 
-    list = cloneDeep<Array<T>>(objects).slice(grid.length);
+    selectedObjects = [];
   }
 
   return grid;
