@@ -28,7 +28,7 @@ export const App = (): JSX.Element => {
   }, [defaultUrl]);
 
   return (
-    <div className="app">
+    <section className="app">
       <SettingsContext.Provider
         value={{ defaultUrl, rowMaxHeight, changeRowMaxHeight, maxWidth, changeMaxWidth, minWidth, changeMinWidth }}
       >
@@ -74,7 +74,7 @@ export const App = (): JSX.Element => {
           </main>
         )}
       </SettingsContext.Provider>
-    </div>
+    </section>
   );
 };
 

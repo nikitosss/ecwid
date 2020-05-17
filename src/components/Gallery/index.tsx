@@ -63,13 +63,15 @@ export const Gallery = ({
 
   useEffect(() => {
     setState();
+  }, [images, wrapWidth, rowMaxHeight, gap, setState]);
+
+  useEffect(() => {
     window.addEventListener('resize', debounceHandler);
 
     return (): void => {
       window.removeEventListener('resize', debounceHandler);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images, wrapWidth, rowMaxHeight, gap]);
+  }, [debounceHandler, debounceWait]);
 
   return (
     <div
