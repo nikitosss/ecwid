@@ -32,9 +32,11 @@ export const App = (): JSX.Element => {
       <SettingsContext.Provider
         value={{ defaultUrl, rowMaxHeight, changeRowMaxHeight, maxWidth, changeMaxWidth, minWidth, changeMinWidth }}
       >
-        <FormSettings className="app__form" onImport={(data: ImageType[]): void => setImages([...data, ...images])} />
+        <header className="app__header">
+          <FormSettings onImport={(data: ImageType[]): void => setImages([...data, ...images])} />
+        </header>
         {Boolean(images.length) && (
-          <div className="app__gallery" style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
+          <main className="app__main" style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
             <React.Suspense fallback={<Loader />}>
               <Gallery
                 images={images}
@@ -52,6 +54,7 @@ export const App = (): JSX.Element => {
                       href={object.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Thumbnail"
                       style={{ left, top }}
                     >
                       <Thumbnail
@@ -68,7 +71,7 @@ export const App = (): JSX.Element => {
                 }
               </Gallery>
             </React.Suspense>
-          </div>
+          </main>
         )}
       </SettingsContext.Provider>
     </div>

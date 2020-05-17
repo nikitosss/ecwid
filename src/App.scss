@@ -1,12 +1,12 @@
 .app {
   margin: 0 auto;
 
-  &__form {
+  &__header {
     max-width: 860px;
-    margin: 10px auto 0;
+    margin: 10px auto;
   }
 
-  &__gallery {
+  &__main {
     margin: 0 auto;
   }
 }
