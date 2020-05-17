@@ -2,12 +2,10 @@ import './App.scss';
 
 import React, { useContext, useEffect, useState } from 'react';
 import importImages from 'src/api/importImages';
-import Thumbnail from 'src/components/Picture';
 import Loader from 'src/components/Spinner';
 import FormSettings from 'src/containers/Form';
 import SettingsContext from 'src/contexts/Settings';
 import { ImageType } from 'src/types/Image';
-import { Cell } from 'src/utils/grid';
 
 const Gallery = React.lazy(() => import('src/components/Gallery'));
 
@@ -45,31 +43,7 @@ export const App = (): JSX.Element => {
                   gap: 4,
                 }}
                 width={maxWidth}
-              >
-                {(grid: Array<Cell<ImageType>>): Array<JSX.Element> =>
-                  grid.map(({ top, left, height, width, object }) => (
-                    <a
-                      className="gallery__item"
-                      key={object.id}
-                      href={object.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Thumbnail"
-                      style={{ left, top }}
-                    >
-                      <Thumbnail
-                        src={object.url}
-                        alt={object.alt || ''}
-                        height={height}
-                        width={width}
-                        params={{
-                          height: rowMaxHeight,
-                        }}
-                      />
-                    </a>
-                  ))
-                }
-              </Gallery>
+              />
             </React.Suspense>
           </main>
         )}
