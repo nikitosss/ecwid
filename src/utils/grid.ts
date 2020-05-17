@@ -60,31 +60,29 @@ export default <T extends Obj>(objects: Array<T>, { rowMaxHeight, width, gap = 0
 
   while (list.length > 0) {
     let rowHeight = 0;
-    let isFullRow = false;
-    let end = 1;
+    let isFull = false;
     let selectedObjects: Array<T> = [];
 
     // eslint-disable-next-line no-loop-func
-    list.some(() => {
-      selectedObjects = list.slice(0, end);
+    list.some((item) => {
+      selectedObjects.push(item);
 
       rowHeight = getRowHeight(selectedObjects, width, gap);
-      isFullRow = rowHeight <= rowMaxHeight;
+      isFull = rowHeight <= rowMaxHeight;
 
-      if (!isFullRow) {
-        end += 1;
-        return false;
-      }
+      if (!isFull) return false;
 
       addRow<T>(grid, selectedObjects, rowHeight, top, gap);
       top += rowHeight + gap;
       return true;
     });
 
-    if (!isFullRow) {
+    if (!isFull) {
       addRow<T>(grid, selectedObjects, rowMaxHeight, top, gap);
       break;
     }
+
+    selectedObjects = [];
 
     list = cloneDeep<Array<T>>(objects).slice(grid.length);
   }

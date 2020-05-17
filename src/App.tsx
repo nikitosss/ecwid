@@ -46,18 +46,24 @@ export const App = (): JSX.Element => {
               >
                 {(grid: Array<Cell<ImageType>>): Array<JSX.Element> =>
                   grid.map(({ top, left, height, width, object }) => (
-                    <Picture
+                    <a
                       className="gallery__item"
                       key={object.id}
+                      href={object.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{ left, top }}
-                      src={object.url}
-                      alt={object.alt || ''}
-                      height={height}
-                      width={width}
-                      // params={{
-                      //   height: rowMaxHeight,
-                      // }}
-                    />
+                    >
+                      <Picture
+                        src={object.url}
+                        alt={object.alt || ''}
+                        height={height}
+                        width={width}
+                        params={{
+                          height: rowMaxHeight,
+                        }}
+                      />
+                    </a>
                   ))
                 }
               </Gallery>
