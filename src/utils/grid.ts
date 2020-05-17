@@ -26,16 +26,10 @@ function getRowHeight<T extends Obj>(objects: Array<T>, width: number, gap: numb
   return widthWithoutGap / ratio;
 }
 
-function addRow<T extends Obj>(
-  grid: Array<Cell<T>>,
-  selectedObjects: Array<T>,
-  height: number,
-  top: number,
-  gap: number
-): Array<Cell<T>> {
-  let left = 0;
+function addRow<T extends Obj>(selectedObjects: Array<T>, height: number, top: number, gap: number): Array<Cell<T>> {
+  const result: Array<Cell<T>> = [];
 
-  return selectedObjects.reduce((result, object) => {
+  selectedObjects.reduce((left, object) => {
     const ratio = height / object.height;
     const width = object.width * ratio;
 
@@ -47,15 +41,15 @@ function addRow<T extends Obj>(
       object,
     });
 
-    left += width + gap;
+    return left + width + gap;
+  }, 0);
 
-    return result;
-  }, grid);
+  return result;
 }
 
 export default <T extends Obj>(objects: Array<T>, { rowMaxHeight, width, gap = 0 }: Options): Array<Cell<T>> => {
   let list = cloneDeep<Array<T>>(objects);
-  const grid: Array<Cell<T>> = [];
+  let grid: Array<Cell<T>> = [];
   let top = 0;
 
   while (list.length > 0) {
@@ -71,14 +65,13 @@ export default <T extends Obj>(objects: Array<T>, { rowMaxHeight, width, gap = 0
       isFull = rowHeight <= rowMaxHeight;
 
       if (!isFull) return false;
-
-      addRow<T>(grid, selectedObjects, rowHeight, top, gap);
+      grid = [...grid, ...addRow<T>(selectedObjects, rowHeight, top, gap)];
       top += rowHeight + gap;
       return true;
     });
 
     if (!isFull) {
-      addRow<T>(grid, selectedObjects, rowMaxHeight, top, gap);
+      grid = [...grid, ...addRow<T>(selectedObjects, rowMaxHeight, top, gap)];
       break;
     }
 
