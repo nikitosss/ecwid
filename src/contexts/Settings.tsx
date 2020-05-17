@@ -3,14 +3,17 @@ import React from 'react';
 export const Settings = React.createContext({
   defaultUrl: `${document.location.href}/frontend-test-task/gallery-images.json`,
   rowMaxHeight: 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  changeRowMaxHeight: (value: number) => {},
+  changeRowMaxHeight(value: number) {
+    this.rowMaxHeight = value;
+  },
   maxWidth: 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  changeMaxWidth: (value: number) => {},
+  changeMaxWidth(value: number) {
+    this.maxWidth = value;
+  },
   minWidth: 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  changeMinWidth: (value: number) => {},
+  changeMinWidth(value: number) {
+    this.minWidth = value;
+  },
 });
 
 export default Settings;

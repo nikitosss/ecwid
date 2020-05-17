@@ -2,7 +2,7 @@ import './App.scss';
 
 import React, { useContext, useEffect, useState } from 'react';
 import importImages from 'src/api/importImages';
-import Picture from 'src/components/Picture';
+import Thumbnail from 'src/components/Picture';
 import Loader from 'src/components/Spinner';
 import FormSettings from 'src/containers/Form';
 import SettingsContext from 'src/contexts/Settings';
@@ -54,7 +54,7 @@ export const App = (): JSX.Element => {
                       rel="noopener noreferrer"
                       style={{ left, top }}
                     >
-                      <Picture
+                      <Thumbnail
                         src={object.url}
                         alt={object.alt || ''}
                         height={height}
