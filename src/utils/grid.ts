@@ -54,23 +54,20 @@ export default <T extends Obj>(objects: Array<T>, { rowMaxHeight, width, gap = 0
 
   while (list.length > 0) {
     let rowHeight = 0;
-    let isFull = false;
     let selectedObjects: Array<T> = [];
 
-    // eslint-disable-next-line no-loop-func
-    list.some((item) => {
+    const isFull = list.some((item) => {
       selectedObjects.push(item);
 
       rowHeight = getRowHeight(selectedObjects, width, gap);
-      isFull = rowHeight <= rowMaxHeight;
 
-      if (!isFull) return false;
-      grid = [...grid, ...addRow<T>(selectedObjects, rowHeight, top, gap)];
-      top += rowHeight + gap;
-      return true;
+      return rowHeight <= rowMaxHeight;
     });
 
-    if (!isFull) {
+    if (isFull) {
+      grid = [...grid, ...addRow<T>(selectedObjects, rowHeight, top, gap)];
+      top += rowHeight + gap;
+    } else {
       grid = [...grid, ...addRow<T>(selectedObjects, rowMaxHeight, top, gap)];
       break;
     }
