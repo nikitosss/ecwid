@@ -1,6 +1,6 @@
 import './styles.scss';
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import importImages from 'src/api/importImages';
 import SettingsContext from 'src/contexts/Settings';
 import { ImageType } from 'src/types/Image';
@@ -23,10 +23,9 @@ export const Form = ({
     minWidth,
     changeMinWidth,
   } = useContext(SettingsContext);
+  const [url, setUrl] = useState<string>(defaultUrl);
   const onSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
-    const urlElement = document.querySelector<HTMLInputElement>('#url');
-    const url = urlElement ? urlElement.value : '';
 
     importImages(url)
       .then((images) => onImport(images))
@@ -50,9 +49,10 @@ export const Form = ({
               pattern="https?://.+"
               required
               defaultValue={defaultUrl}
+              onChange={(event): void => setUrl(event.target.value)}
             />
           </label>
-          <button className="form__button" type="submit">
+          <button className="form__button" type="submit" disabled={!url}>
             Upload
           </button>
         </div>
