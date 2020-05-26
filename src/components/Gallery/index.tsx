@@ -81,12 +81,12 @@ export const Gallery = ({
       {grid &&
         (typeof children === 'function'
           ? children(grid)
-          : grid.map(({ top, left, height, width, object }) => (
+          : grid.map(({ top, left, height, width, object: { id, url, alt = '' } }) => (
               <img
                 className={b('item')}
-                key={object.id}
-                src={object.url}
-                alt={object.alt || ''}
+                key={id}
+                src={url}
+                alt={alt}
                 height={height}
                 width={width}
                 style={{
