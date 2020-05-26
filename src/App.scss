@@ -1,12 +1,12 @@
 .app {
   margin: 0 auto;
 
-  &__header {
+  &-header {
     max-width: 860px;
     margin: 10px auto;
   }
 
-  &__main {
+  &-main {
     margin: 0 auto;
   }
 }

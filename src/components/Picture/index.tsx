@@ -10,7 +10,7 @@ export interface PictureProps extends React.HTMLAttributes<HTMLElement> {
   params?: Query;
 }
 
-const Picture: React.FC<PictureProps> = ({ src, alt, width, height, className, params, ...props }) => {
+const Picture: React.FC<PictureProps> = ({ src, alt, width, height, params, ...props }) => {
   const imgSource = imageProxy(src, params);
   const webpSource = imageProxy(src, {
     ...params,
@@ -18,7 +18,7 @@ const Picture: React.FC<PictureProps> = ({ src, alt, width, height, className, p
   });
 
   return (
-    <picture className={className} {...props}>
+    <picture {...props}>
       <source srcSet={webpSource} type="image/webp" />
       <img src={imgSource} alt={alt} width={width} height={height} />
     </picture>

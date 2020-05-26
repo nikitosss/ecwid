@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { cn } from '@bem-react/classname';
 import React, { useContext, useState } from 'react';
 import importImages from 'src/api/importImages';
 import SettingsContext from 'src/contexts/Settings';
@@ -8,6 +9,8 @@ import { ImageType } from 'src/types/Image';
 type FormProps = {
   onImport: (images: ImageType[]) => void;
 };
+
+const b = cn('form');
 
 export const Form = ({
   onImport,
@@ -36,13 +39,13 @@ export const Form = ({
   };
 
   return (
-    <form className={`form${className ? ` ${className}` : ''}`} {...props} onSubmit={onSubmit}>
-      <fieldset className="form__fieldset">
+    <form className={b(undefined, [className])} {...props} onSubmit={onSubmit}>
+      <fieldset className={b('fieldset')}>
         <legend>Import</legend>
-        <div className="form__group">
-          <label className="form__label" htmlFor="url">
+        <div className={b('group')}>
+          <label className={b('label')} htmlFor="url">
             <input
-              className="form__input"
+              className={b('input')}
               type="url"
               name="url"
               id="url"
@@ -52,18 +55,18 @@ export const Form = ({
               onChange={(event): void => setUrl(event.target.value)}
             />
           </label>
-          <button className="form__button" type="submit" disabled={!url}>
+          <button className={b('button')} type="submit" disabled={!url}>
             Upload
           </button>
         </div>
       </fieldset>
-      <fieldset className="form__fieldset">
+      <fieldset className={b('fieldset')}>
         <legend>Settings</legend>
-        <div className="form__group">
-          <label className="form__label" htmlFor="rowMaxHeight">
-            <span className="form__label_text">Row max height</span>
+        <div className={b('group')}>
+          <label className={b('label')} htmlFor="rowMaxHeight">
+            <span className={b('labelText')}>Row max height</span>
             <input
-              className="form__input"
+              className={b('input')}
               type="number"
               id="rowMaxHeight"
               required
@@ -71,10 +74,10 @@ export const Form = ({
               onChange={(event): void => changeRowMaxHeight(Number(event.target.value))}
             />
           </label>
-          <label className="form__label" htmlFor="maxWidth">
-            <span className="form__label_text">Max width</span>
+          <label className={b('label')} htmlFor="maxWidth">
+            <span className={b('labelText')}>Max width</span>
             <input
-              className="form__input"
+              className={b('input')}
               type="number"
               id="maxWidth"
               required
@@ -82,10 +85,10 @@ export const Form = ({
               onChange={(event): void => changeMaxWidth(Number(event.target.value))}
             />
           </label>
-          <label className="form__label" htmlFor="minWidth">
-            <span className="form__label_text">Min width</span>
+          <label className={b('label')} htmlFor="minWidth">
+            <span className={b('labelText')}>Min width</span>
             <input
-              className="form__input"
+              className={b('input')}
               type="number"
               id="minWidth"
               required

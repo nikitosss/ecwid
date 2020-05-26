@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { cn } from '@bem-react/classname';
 import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ImageType } from 'src/types/Image';
@@ -14,6 +15,8 @@ type GalleryProps = {
   width?: number;
   debounceWait?: number;
 };
+
+const b = cn('gallery');
 
 const getGrid = (
   items: ImageType[],
@@ -74,18 +77,13 @@ export const Gallery = ({
   }, [debounceHandler, debounceWait]);
 
   return (
-    <div
-      className={`gallery${className ? ` ${className}` : ''}`}
-      ref={wrapElement}
-      style={{ ...style, height: wrapHeight }}
-      {...props}
-    >
+    <div className={b(undefined, [className])} ref={wrapElement} style={{ ...style, height: wrapHeight }} {...props}>
       {grid &&
         (typeof children === 'function'
           ? children(grid)
           : grid.map(({ top, left, height, width, object }) => (
               <img
-                className="gallery__item"
+                className={b('item')}
                 key={object.id}
                 src={object.url}
                 alt={object.alt || ''}

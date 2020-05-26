@@ -1,5 +1,6 @@
 import './App.scss';
 
+import { cn } from '@bem-react/classname';
 import React, { useContext, useEffect, useState } from 'react';
 import importImages from 'src/api/importImages';
 import Loader from 'src/components/Spinner';
@@ -8,6 +9,8 @@ import SettingsContext from 'src/contexts/Settings';
 import { ImageType } from 'src/types/Image';
 
 const Gallery = React.lazy(() => import('src/components/Gallery'));
+
+const b = cn('app');
 
 export const App = (): JSX.Element => {
   const { defaultUrl } = useContext(SettingsContext);
@@ -26,15 +29,18 @@ export const App = (): JSX.Element => {
   }, [defaultUrl]);
 
   return (
-    <section className="app">
+    <section className={b()}>
       <SettingsContext.Provider
         value={{ defaultUrl, rowMaxHeight, changeRowMaxHeight, maxWidth, changeMaxWidth, minWidth, changeMinWidth }}
       >
-        <header className="app__header">
-          <FormSettings onImport={(data: ImageType[]): void => setImages([...data, ...images])} />
+        <header className={b('header')}>
+          <FormSettings
+            className={b('settings')}
+            onImport={(data: ImageType[]): void => setImages([...data, ...images])}
+          />
         </header>
         {Boolean(images.length) && (
-          <main className="app__main" style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
+          <main className={b('main')} style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
             <React.Suspense fallback={<Loader />}>
               <Gallery
                 images={images}

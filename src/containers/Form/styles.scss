@@ -1,6 +1,6 @@
 .form {
 
-  &__fieldset {
+  &-fieldset {
     margin-top: 10px;
 
     &:first-child {
@@ -8,11 +8,11 @@
     }
   }
 
-  &__group {
+  &-group {
     display: flex;
   }
 
-  &__label {
+  &-label {
     flex: 1;
     margin-left: 10px;
 
@@ -21,18 +21,18 @@
     }
   }
 
-  &__label_text {
+  &-labelText {
     display: block;
     margin-bottom: 5px;
     white-space: nowrap;
   }
 
-  &__input {
+  &-input {
     flex: 1;
     width: 100%;
   }
 
-  &__button {
+  &-button {
     margin-left: 10px;
   }
 }
