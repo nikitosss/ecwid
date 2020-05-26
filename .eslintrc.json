@@ -4,18 +4,6 @@
     "project": "./tsconfig.json",
     "tsconfigRootDir": "./"
   },
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "react-app",
-    "airbnb-typescript",
-    "plugin:promise/recommended",
-    "plugin:sonarjs/recommended",
-    "plugin:unicorn/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react"
-  ],
   "plugins": [
     "@typescript-eslint",
     "react",
@@ -25,6 +13,18 @@
     "unicorn",
     "import",
     "tsc"
+  ],
+  "extends": [
+    "react-app",
+    "airbnb-typescript",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended"
   ],
   "reportUnusedDisableDirectives": true,
   "settings": {
