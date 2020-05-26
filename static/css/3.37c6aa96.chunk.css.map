@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,SACE,iBAAkB,CAElB,cACE,iBAAkB","file":"3.37c6aa96.chunk.css","sourcesContent":[".gallery {\n  position: relative;\n\n  &-item {\n    position: absolute;\n  }\n}\n"]}
