@@ -16,7 +16,7 @@ export const parameters = (data: Query): string =>
  */
 export const imageProxy = (source: string, props?: Query): string =>
   `https://images.weserv.nl/?${parameters({
-    ...((url): Query => ({
+    ...((url: string): Query => ({
       url,
       default: url,
     }))(encodeURIComponent(source)),

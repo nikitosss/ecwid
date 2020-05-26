@@ -33,6 +33,7 @@
     }
   },
   "rules": {
+    "@typescript-eslint/camelcase": "off",
     "no-console": ["warn", { "allow": ["info", "warn", "error"] }],
     "no-alert": "off",
     "react/prop-types": "off",

@@ -3,9 +3,10 @@ import './styles.scss';
 import React, { useContext } from 'react';
 import importImages from 'src/api/importImages';
 import SettingsContext from 'src/contexts/Settings';
+import { ImageType } from 'src/types/Image';
 
 type FormProps = {
-  onImport: Function;
+  onImport: (images: ImageType[]) => void;
 };
 
 export const Form = ({
