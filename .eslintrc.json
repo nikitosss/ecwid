@@ -16,6 +16,8 @@
   ],
   "extends": [
     "react-app",
+    "canonical",
+    "canonical/react",
     "airbnb-typescript",
     "prettier/@typescript-eslint",
     "prettier/react",
@@ -34,6 +36,9 @@
   },
   "rules": {
     "@typescript-eslint/camelcase": "off",
+    "sort-keys-fix/sort-keys-fix": "off",
+    "filenames/match-regex": "off",
+    "babel/object-curly-spacing": ["error", "always"],
     "no-console": ["warn", { "allow": ["info", "warn", "error"] }],
     "no-alert": "off",
     "react/prop-types": "off",

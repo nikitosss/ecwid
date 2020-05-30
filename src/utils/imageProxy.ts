@@ -2,6 +2,7 @@ import { Query } from 'src/types/Query';
 
 /**
  * Сериализация объекта для get-запроса
+ *
  * @param data объект параметров
  */
 export const parameters = (data: Query): string =>
@@ -11,14 +12,15 @@ export const parameters = (data: Query): string =>
 
 /**
  * Прокси-сервер изображений weserv.nl
+ *
  * @param source url изображения
  * @param props объект параметров
  */
 export const imageProxy = (source: string, props?: Query): string =>
   `https://images.weserv.nl/?${parameters({
     ...((url: string): Query => ({
-      url,
       default: url,
+      url,
     }))(encodeURIComponent(source)),
     ...props,
   })}`;

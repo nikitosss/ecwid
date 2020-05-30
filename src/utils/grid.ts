@@ -19,6 +19,7 @@ export type Cell<T> = {
 
 /**
  * Вычисление высоты строки от размеров объектов
+ *
  * @param objects массив объектов
  * @param width ширина строки
  * @param gap межобъектный интервал
@@ -35,6 +36,7 @@ function getRowHeight<T extends Obj>(objects: Array<T>, width: number, gap: numb
 
 /**
  * Добавление строки в сетку
+ *
  * @param objects массив объектов
  * @param height высота строки
  * @param top отступ строки от версшины сетки
@@ -64,6 +66,7 @@ function addRow<T extends Obj>(objects: Array<T>, height: number, top: number, g
 
 /**
  * Генерация сетки
+ *
  * @param objects массив объектов
  * @param options опции
  * @param options.rowMaxHeight максимальная высота строки.
