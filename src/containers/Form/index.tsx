@@ -27,15 +27,16 @@ export const Form = ({
     changeMinWidth,
   } = useContext(SettingsContext);
   const [url, setUrl] = useState<string>(defaultUrl);
-  const onSubmit = (event: React.SyntheticEvent): void => {
+  const onSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
 
-    importImages(url)
-      .then((images) => onImport(images))
-      .catch((error: Error) => {
-        alert(error);
-        return console.error(error);
-      });
+    try {
+      const images = await importImages(url);
+      onImport(images);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
   };
 
   return (

@@ -40,7 +40,7 @@ export const App = (): JSX.Element => {
           />
         </header>
         {Boolean(images.length) && (
-          <main className={b('main')} style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
+          <div className={b('main')} style={{ maxWidth: `${maxWidth}px`, minWidth: `${minWidth}px` }}>
             <React.Suspense fallback={<Loader />}>
               <Gallery
                 images={images}
@@ -51,7 +51,7 @@ export const App = (): JSX.Element => {
                 width={maxWidth}
               />
             </React.Suspense>
-          </main>
+          </div>
         )}
       </SettingsContext.Provider>
     </section>
